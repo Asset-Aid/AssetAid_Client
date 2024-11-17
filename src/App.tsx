@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./App.css";
 import { createGlobalStyle } from "styled-components";
 import { AuthProvider } from "./AuthContext";
+import RecommendMain from "./routes/RecommendMain";
 const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
@@ -15,7 +15,6 @@ const GlobalStyles = createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     background-color: black;
   }
 
@@ -24,23 +23,24 @@ const GlobalStyles = createGlobalStyle`
     height: 640px;
     background-color: white;
     border: 1px solid #ccc;
+    overflow-y: auto; 
   }
 `;
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <main />,
+    element: <RecommendMain />,
+    // children: [{ path: "/recommend", element: <RecommendMain /> }],
   },
 ]);
 function App() {
   return (
     <div>
-      <GlobalStyles>
-        <AuthProvider>
-          <RouterProvider router={router} />
-        </AuthProvider>
-      </GlobalStyles>
+      <GlobalStyles />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </div>
   );
 }
