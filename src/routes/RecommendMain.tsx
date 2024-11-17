@@ -258,7 +258,8 @@ const RecommendMain: React.FC = () => {
         {cardData.map(renderItem)}
       </Carousel>
       <StyledButton onClick={() => navigate("/research")}>
-        금융상품 찾아보기
+        {" "}
+        //검색 기능 구현하고 진짜 경로로 바꿔주세요 금융상품 찾아보기
       </StyledButton>
     </Container>
   );
