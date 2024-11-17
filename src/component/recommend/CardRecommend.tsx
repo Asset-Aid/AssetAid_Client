@@ -19,7 +19,6 @@ const CardRecommendCard: React.FC<CardRecommendCardProps> = ({ cardData }) => {
       <ImageContainer>
         <Character src="/assets/character1.png" alt="Card Character" />
       </ImageContainer>
-      <BankName>{cardData.bankName}</BankName>
     </CardContainer>
   );
 };
@@ -37,7 +36,7 @@ const CardContainer = styled.div`
 `;
 
 const Title = styled.h3`
-  font-size: 15px;
+  font-size: 12px;
   font-weight: bold;
   color: #121212;
   margin-bottom: 8px;
@@ -46,21 +45,12 @@ const Title = styled.h3`
 const ImageContainer = styled.div`
   position: absolute;
   top: 85px;
-  right: 80px;
+  right: 70px;
 `;
 
 const Character = styled.img`
-  width: 50px;
+  width: 52px;
   height: 50px;
-`;
-
-const BankName = styled.span`
-  font-size: 15px;
-  font-weight: bold;
-  color: #fff;
-  position: absolute;
-  top: 110px;
-  left: 78px;
 `;
 
 export default CardRecommendCard;
