@@ -35,7 +35,7 @@ const GlobalStyles = createGlobalStyle`
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RecommendMain />,
+    element: <LikedItems />,
     // children: [{ path: "/recommend", element: <RecommendMain /> }],
   },
 ]);
