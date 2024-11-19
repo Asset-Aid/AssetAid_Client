@@ -10,6 +10,7 @@ import LikedItems from "./routes/LikedItems";
 import DepositSearch from "./routes/DepositSearch";
 import SavingSearch from "./routes/SavingSearch";
 import CardSearch from "./routes/CardSearch";
+import GuestMain from "./routes/GuestMain";
 
 const GlobalStyles = createGlobalStyle`
   * {
