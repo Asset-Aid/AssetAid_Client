@@ -8,6 +8,8 @@ import FinancialProfile from "./routes/FinancialProfile";
 import FinancialGoals from "./routes/FinancialGoal";
 import LikedItems from "./routes/LikedItems";
 import DepositSearch from "./routes/DepositSearch";
+import SavingSearch from "./routes/SavingSearch";
+import CardSearch from "./routes/CardSearch";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -38,8 +40,19 @@ const GlobalStyles = createGlobalStyle`
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <RecommendMain />,
+  },
+  {
+    path: "/DepositSearch",
     element: <DepositSearch />,
-    // children: [{ path: "/recommend", element: <RecommendMain /> }],
+  },
+  {
+    path: "/SavingSearch",
+    element: <SavingSearch />,
+  },
+  {
+    path: "/CardSearch",
+    element: <CardSearch />,
   },
 ]);
 function App() {

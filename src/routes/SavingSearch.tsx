@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-const DepositSearch = () => {
+const SavingSearch = () => {
   const navigate = useNavigate(); 
   const [selectedBank, setSelectedBank] = useState<string | null>(null);
-  const [selectedDepositType, setSelectedDepositType] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
   const [selectedTerm, setSelectedTerm] = useState<string | null>(null);
 
   const banks = [
@@ -16,8 +16,8 @@ const DepositSearch = () => {
     setSelectedBank(selectedBank === bank ? null : bank);
   };
 
-  const handleDepositTypeSelect = (type: string) => {
-    setSelectedDepositType(type);
+  const handleTypeSelect = (type: string) => {
+    setSelectedType(type);
   };
 
   const handleTermSelect = (term: string) => {
@@ -25,7 +25,7 @@ const DepositSearch = () => {
   };
 
   const handleSearch = () => {
-    if (selectedBank && selectedDepositType && selectedTerm) {
+    if (selectedBank && selectedType && selectedTerm) {
       //navigate('/SavingSearch');  
     }
   };
@@ -39,11 +39,11 @@ const DepositSearch = () => {
         <ExitIcon src="/assets/exiticon.png" alt="Exit" />
       </Header>
 
-      <SelectContainer>   
-        <SelectButton isDeposit onClick={() => handleDepositTypeSelect('예금')}>
+      <SelectContainer>
+        <SelectButton onClick={() => navigate('/DepositSearch')}>
           <ButtonText>예금</ButtonText>
         </SelectButton>
-        <SelectButton onClick={() => navigate('/SavingSearch')} >
+        <SelectButton isSaving >
           <ButtonText>적금</ButtonText>
         </SelectButton>
         <SelectButton onClick={() => navigate('/CardSearch')}>
@@ -52,7 +52,7 @@ const DepositSearch = () => {
       </SelectContainer>
 
       <SearchContainer>
-        <BoldText>은행으로 예금 찾기</BoldText>
+        <BoldText>은행으로 적금 찾기</BoldText>
         <BankContainer>
           {banks.map((bank, index) => (
             <BankButton
@@ -66,14 +66,14 @@ const DepositSearch = () => {
         </BankContainer>
         <InfoText>지방은행의 경우 경남은행,광주은행,대구은행,부산은행,<br />전북은행,제주은행을 포함하고 있습니다.</InfoText>
 
-        <DepositTypeContainer>
-          <DepositTypeButton selected={selectedDepositType === '입출금자유예금'} onClick={() => handleDepositTypeSelect('입출금자유예금')}>
-            <BoldText>입출금자유예금</BoldText>
-          </DepositTypeButton>
-          <DepositTypeButton selected={selectedDepositType === '정기예금'} onClick={() => handleDepositTypeSelect('정기예금')}>
-            <BoldText>정기예금</BoldText>
-          </DepositTypeButton>
-        </DepositTypeContainer>
+        <TypeContainer>
+          <TypeButton selected={selectedType === '정액적립식'} onClick={() => handleTypeSelect('정액적립식')}>
+            <BoldText>정액적립식</BoldText>
+          </TypeButton>
+          <TypeButton selected={selectedType === '자유적립식'} onClick={() => handleTypeSelect('자유적립식')}>
+            <BoldText>자유적립식</BoldText>
+          </TypeButton>
+        </TypeContainer>
 
         <TermContainer>
           <TermText>만기</TermText>
@@ -90,7 +90,7 @@ const DepositSearch = () => {
         <ResetButton>
           <ButtonText>초기화</ButtonText>
         </ResetButton>
-        <SearchButton onClick={handleSearch} disabled={!selectedBank || !selectedDepositType || !selectedTerm}>
+        <SearchButton onClick={handleSearch} disabled={!selectedBank || !selectedType || !selectedTerm}>
           <ButtonText>검색</ButtonText>
         </SearchButton>
       </ButtonContainer>
@@ -141,8 +141,8 @@ const SelectContainer = styled.div`
   margin: 15px auto 20px auto;
 `;
 
-const SelectButton = styled.button<{ isDeposit?: boolean }>`
-  background-color: ${({ isDeposit }) => (isDeposit ? '#fee0c5' : '#f5f5f5')};
+const SelectButton = styled.button<{ isSaving?: boolean }>`
+  background-color: ${({ isSaving }) => (isSaving ? '#fee0c5' : '#f5f5f5')};
   border-radius: 20px;
   border: 0;
   padding: 10px;
@@ -201,12 +201,12 @@ const InfoText = styled.p`
   margin-top: 5px;
 `;
 
-const DepositTypeContainer = styled.div`
+const TypeContainer = styled.div`
   display: flex;
   margin-top: 8px;
 `;
 
-const DepositTypeButton = styled.button<{ selected: boolean }>`
+const TypeButton = styled.button<{ selected: boolean }>`
   margin: 5px;
   padding: 5px;
   width: 150px;
@@ -270,5 +270,5 @@ const SearchButton = styled.button<{ disabled: boolean }>`
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
-export default DepositSearch;
+export default SavingSearch;
 
