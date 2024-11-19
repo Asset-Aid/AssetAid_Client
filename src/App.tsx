@@ -7,6 +7,8 @@ import EditUserInfo from "./routes/EditUserInfo";
 import FinancialProfile from "./routes/FinancialProfile";
 import FinancialGoals from "./routes/FinancialGoal";
 import LikedItems from "./routes/LikedItems";
+import DepositSearch from "./routes/DepositSearch";
+
 const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
@@ -29,13 +31,14 @@ const GlobalStyles = createGlobalStyle`
     background-color: white;
     border: 1px solid #ccc;
     overflow-y: auto; 
+    overflow-x: hidden;
   }
 `;
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LikedItems />,
+    element: <DepositSearch />,
     // children: [{ path: "/recommend", element: <RecommendMain /> }],
   },
 ]);
