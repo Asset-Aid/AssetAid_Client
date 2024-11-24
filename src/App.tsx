@@ -11,6 +11,8 @@ import DepositSearch from "./routes/DepositSearch";
 import SavingSearch from "./routes/SavingSearch";
 import CardSearch from "./routes/CardSearch";
 import GuestMain from "./routes/GuestMain";
+import Login from "./routes/Login";
+import Signup from "./routes/Signup";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -41,7 +43,7 @@ const GlobalStyles = createGlobalStyle`
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RecommendMain />,
+    element: <GuestMain />,
   },
   {
     path: "/DepositSearch",
@@ -55,6 +57,15 @@ const router = createBrowserRouter([
     path: "/CardSearch",
     element: <CardSearch />,
   },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+
 ]);
 function App() {
   return (

@@ -62,7 +62,7 @@ const GuestMain = () => {
     <Container>
       <Header>
         <Logo src="/assets/logo1.png" alt="Logo" />
-        <LoginButton>로그인 하기</LoginButton>
+        <LoginButton onClick={() => navigate("/login")}>로그인 하기</LoginButton>
       </Header>
       <BannerCarousel />
       <StyledButton onClick={() => navigate("/DepositSearch")}>
