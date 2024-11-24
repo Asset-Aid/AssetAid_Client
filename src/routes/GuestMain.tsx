@@ -1,62 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import BannerCarousel from "../component/banner/BannerCarousel";
+import DepositModal from "../component/modal/DepositModal"; 
+import SavingModal from "../component/modal/SavingModal"; 
+import CardModal from "../component/modal/CardModal"; 
 
 const DepositData = [
-  {
-    depositName: "LIVE정기예금",
-    bank: "부산은행",
-    depositId: 615,
-  },
-  {
-    depositName: "e-그린세이브예금",
-    bank: "한국스탠다드차타드은행",
-    depositId: 610,
-  },
-  {
-    depositName: "The플러스예금",
-    bank: "광주은행",
-    depositId: 660,
-  },
+  { depositName: "LIVE정기예금", bank: "부산은행", depositId: 615 },
+  { depositName: "e-그린세이브예금", bank: "한국스탠다드차타드은행", depositId: 610 },
+  { depositName: "The플러스예금", bank: "광주은행", depositId: 660 },
 ];
 const SavingData = [
-  {
-    savingId: 972,
-    savingName: "jbank 저금통적금",
-    bank: "제주은행",
-  },
-  {
-    savingId: 971,
-    savingName: "VIP플러스적금",
-    bank: "광주은행",
-  },
-  {
-    savingId: 970,
-    savingName: "여행스케치_남도투어적금",
-    bank: "광주은행",
-  },
+  { savingId: 972, savingName: "jbank 저금통적금", bank: "제주은행" },
+  { savingId: 971, savingName: "VIP플러스적금", bank: "광주은행" },
+  { savingId: 970, savingName: "여행스케치_남도투어적금", bank: "광주은행" },
 ];
 const CardData = [
-  {
-    cardId: 1,
-    cardName: "신한카드 Mr.Life신한카드",
-    bank: "신한카드",
-  },
-  {
-    cardId: 2,
-    cardName: "삼성카드 taptap O삼성카드",
-    bank: "삼성카드",
-  },
-  {
-    cardId: 3,
-    cardName: "현대카드 M현대카드",
-    bank: "현대카드",
-  },
+  { cardId: 1, cardName: "신한카드 Mr.Life신한카드", bank: "신한카드" },
+  { cardId: 2, cardName: "삼성카드 taptap O삼성카드", bank: "삼성카드" },
+  { cardId: 3, cardName: "현대카드 M현대카드", bank: "현대카드" },
 ];
+
+
+interface ModalData {
+  type: 'deposit' | 'saving' | 'card';
+  id: number;
+}
 
 const GuestMain = () => {
   const navigate = useNavigate();
+  const [modalData, setModalData] = useState<ModalData | null>(null);
+
+
+  const handleItemClick = (type: 'deposit' | 'saving' | 'card', id: number) => {
+    setModalData({ type, id }); 
+  };
+
+
+  const closeModal = () => setModalData(null);
 
   return (
     <Container>
@@ -70,13 +52,17 @@ const GuestMain = () => {
       </StyledButton>
       <SectionTitle>실시간 인기 차트</SectionTitle>
 
+
       <ChartSection>
         <ChartTitle>
           <OrangeLine />
           예금
         </ChartTitle>
         {DepositData.map((item, index) => (
-          <ChartItem key={item.depositId}>
+          <ChartItem
+            key={item.depositId}
+            onClick={() => handleItemClick("deposit", item.depositId)}
+          >
             <Rank>{index + 1}</Rank>
             <ItemName>{item.depositName}&nbsp;</ItemName>
             <BankName> | {item.bank}</BankName>
@@ -90,7 +76,10 @@ const GuestMain = () => {
           적금
         </ChartTitle>
         {SavingData.map((item, index) => (
-          <ChartItem key={item.savingId}>
+          <ChartItem
+            key={item.savingId}
+            onClick={() => handleItemClick("saving", item.savingId)}
+          >
             <Rank>{index + 1}</Rank>
             <ItemName>{item.savingName}</ItemName>
             <BankName> | {item.bank}</BankName>
@@ -104,13 +93,26 @@ const GuestMain = () => {
           카드
         </ChartTitle>
         {CardData.map((item, index) => (
-          <ChartItem key={item.cardId}>
+          <ChartItem
+            key={item.cardId}
+            onClick={() => handleItemClick("card", item.cardId)}
+          >
             <Rank>{index + 1}</Rank>
             <ItemName>{item.cardName}</ItemName>
             <BankName> | {item.bank}</BankName>
           </ChartItem>
         ))}
       </ChartSection>
+
+      {modalData && modalData.type === "deposit" && (
+        <DepositModal id={modalData.id} visible={true} onClose={closeModal} />
+      )}
+      {modalData && modalData.type === "saving" && (
+        <SavingModal id={modalData.id} visible={true} onClose={closeModal} />
+      )}
+      {modalData && modalData.type === "card" && (
+        <CardModal id={modalData.id} visible={true} onClose={closeModal} />
+      )}
     </Container>
   );
 };
@@ -201,6 +203,7 @@ const ChartItem = styled.div`
   margin-bottom: 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
 `;
 
 const Rank = styled.span`
