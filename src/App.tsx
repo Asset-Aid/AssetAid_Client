@@ -14,6 +14,7 @@ import GuestMain from "./routes/GuestMain";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import Preference1 from "./routes/Preference_1";
+import Preference2 from "./routes/Preference_2";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "/preference/start",
     element: <Preference1 />,
+  },
+  {
+    path: "/preference/basic",
+    element: <Preference2 />,
   },
 ]);
 function App() {

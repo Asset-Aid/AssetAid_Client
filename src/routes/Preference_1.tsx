@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 interface Preference1Props {
@@ -9,6 +10,10 @@ const Preference1: React.FC<Preference1Props> = ({ nickname }) => {
   const dummyData = {
     nickname: "부자되십송",
   };
+  const navigate = useNavigate();
+  const handleNext = () => {
+    navigate("/preference/basic");
+  };
   return (
     <Container>
       <Title1>
@@ -17,7 +22,7 @@ const Preference1: React.FC<Preference1Props> = ({ nickname }) => {
       <Title2>금융성향을 알려주세요!</Title2>
 
       <CharacterImage src="/assets/character2.png" alt="Character" />
-      <StartButton>START</StartButton>
+      <StartButton onClick={handleNext}>START</StartButton>
     </Container>
   );
 };
