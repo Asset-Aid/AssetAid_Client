@@ -13,6 +13,7 @@ import CardSearch from "./routes/CardSearch";
 import GuestMain from "./routes/GuestMain";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
+import Preference1 from "./routes/Preference_1";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -65,7 +66,10 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <Signup />,
   },
-
+  {
+    path: "/preference/start",
+    element: <Preference1 />,
+  },
 ]);
 function App() {
   return (
