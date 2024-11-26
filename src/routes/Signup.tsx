@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import axios from "axios"; // 실제 백엔드 연결 시 사용
+// import axios from "axios"; 
 
 const Signup = () => {
   const [password, setPassword] = useState<string>("");

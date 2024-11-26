@@ -57,7 +57,7 @@ const CardModal = ({ visible, onClose, id }: CardModalProps) => {
     <ModalOverlay visible={visible}>
       <ModalContainer>
         <ModalHeader>
-          <HeartIcon />
+          <HeartIcon id={id} type="card" />
           <CloseButton onClick={onClose}>
             <ExitIcon src="/assets/exiticon.png" alt="Exit" />
           </CloseButton>

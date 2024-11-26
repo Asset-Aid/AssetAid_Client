@@ -55,7 +55,7 @@ const SavingModal = ({ visible, onClose, id }: SavingModalProps) => {
     <ModalOverlay visible={visible}>
       <ModalContainer>
         <ModalHeader>
-          <HeartIcon />
+          <HeartIcon id={id} type="saving" />
           <CloseButton onClick={onClose}>
             <ExitIcon src="/assets/exiticon.png" alt="Exit" />
           </CloseButton>

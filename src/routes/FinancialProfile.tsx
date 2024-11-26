@@ -1,15 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
-
-const FinancialProfileData =[
-
-];
+// import axios from 'axios';
 
 const FinancialProfile = () => {
+  const [profileData, setProfileData] = useState({
+    job: '',
+    salary: 0,
+    spend: 0,
+    debt: 0,
+    knowledge_level: '',
+    investment_style: '',
+    available_amount: 0,
+  });
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      // try {
+      //   const response = await axios.get(`/mypage/${id}/bias`);
+      //   setProfileData(response.data);
+      // } catch (error) {
+      //   console.error('Error fetching profile data:', error);
+      // }
+
+      const mockResponse = {
+        available_amount: 4580000,
+        bank: null,
+        bank_id: [1, 4],
+        debt: 1580000,
+        investment_style: 'safe',
+        job: 'student',
+        knowledge_level: 'high',
+        salary: 50000000,
+        spend: 500000,
+        user_id: '7',
+      };
+      setProfileData(mockResponse);
+    };
+
+    fetchProfileData();
+  }, []);
+
   return (
     <Container>
-        
       <Header>
         <BackIcon src="/assets/backicon.png" alt="Back" />
         <Logo src="/assets/logo1.png" alt="Logo" />
@@ -20,67 +52,62 @@ const FinancialProfile = () => {
         <Separator />
       </MyPageHeader>
 
-    <ContentContainer>
-    <Content>
-        <LineContainer>
-          <InfoNameText>직업군</InfoNameText>
-          <InfoContainer>
-            <InfoText />
-          </InfoContainer>
-        </LineContainer>
+      <ContentContainer>
+        <Content>
+          <LineContainer>
+            <InfoNameText>직업군</InfoNameText>
+            <InfoContainer>
+              <InfoText>{profileData.job}</InfoText>
+            </InfoContainer>
+          </LineContainer>
 
-        <LineContainer>
-          <InfoNameText>월 소득 수준</InfoNameText>
-          <InfoContainer>
-            <InfoText />
-          </InfoContainer>
-        </LineContainer>
+          <LineContainer>
+            <InfoNameText>월 소득 수준</InfoNameText>
+            <InfoContainer>
+              <InfoText>{profileData.salary.toLocaleString()} 원</InfoText>
+            </InfoContainer>
+          </LineContainer>
 
-        <LineContainer>
-          <InfoNameText>월 지출 수준</InfoNameText>
-          <InfoContainer>
-            <InfoText />
-          </InfoContainer>
-        </LineContainer>
+          <LineContainer>
+            <InfoNameText>월 지출 수준</InfoNameText>
+            <InfoContainer>
+              <InfoText>{profileData.spend.toLocaleString()} 원</InfoText>
+            </InfoContainer>
+          </LineContainer>
 
-        <LineContainer>
-          <InfoNameText>부채 수준</InfoNameText>
-          <InfoContainer>
-            <InfoText />
-          </InfoContainer>
-        </LineContainer>
+          <LineContainer>
+            <InfoNameText>부채 수준</InfoNameText>
+            <InfoContainer>
+              <InfoText>{profileData.debt.toLocaleString()} 원</InfoText>
+            </InfoContainer>
+          </LineContainer>
 
-        <LineContainer>
-          <InfoNameText>금융지식 수준</InfoNameText>
-          <InfoContainer>
-            <InfoText />
-          </InfoContainer>
-        </LineContainer>
+          <LineContainer>
+            <InfoNameText>금융지식 수준</InfoNameText>
+            <InfoContainer>
+              <InfoText>{profileData.knowledge_level}</InfoText>
+            </InfoContainer>
+          </LineContainer>
 
-        <LineContainer>
-          <InfoNameText>투자 성향</InfoNameText>
-          <InfoContainer>
-            <InfoText />
-          </InfoContainer>
-        </LineContainer>
+          <LineContainer>
+            <InfoNameText>투자 성향</InfoNameText>
+            <InfoContainer>
+              <InfoText>{profileData.investment_style}</InfoText>
+            </InfoContainer>
+          </LineContainer>
 
-        <LineContainer>
-          <InfoNameText>투자 가능 금액</InfoNameText>
-          <InfoContainer>
-            <InfoText />
-          </InfoContainer>
-        </LineContainer>
-
-      </Content>
-      
-
-    </ContentContainer>
-    <EditButton>수정하기</EditButton>
-
+          <LineContainer>
+            <InfoNameText>투자 가능 금액</InfoNameText>
+            <InfoContainer>
+              <InfoText>{profileData.available_amount.toLocaleString()} 원</InfoText>
+            </InfoContainer>
+          </LineContainer>
+        </Content>
+      </ContentContainer>
+      <EditButton>수정하기</EditButton>
     </Container>
   );
 };
-
 
 const Header = styled.div`
   display: flex;
@@ -129,49 +156,49 @@ const Separator = styled.hr`
 `;
 
 const ContentContainer = styled.div`
-  display: flex; /* 플렉스 박스 활성화 */
-  justify-content: center; /* 가로 가운데 정렬 */
-  width: 100%; /* 부모 컨테이너의 전체 너비 사용 */
-  height: auto; 
-  margin-top:30px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin-top: 30px;
   padding: 0;
-`
+`;
 
 const Content = styled.div`
-  max-width: 280px; /* Content의 최대 너비 고정 */
-  width: 100%; /* 부모 요소 너비에 맞춤 */
+  max-width: 280px;
+  width: 100%;
   display: flex;
-  flex-direction: column; /* 내부 요소를 세로로 배치 */
+  flex-direction: column;
 `;
 
 const LineContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 두 요소를 양 끝에 배치 */
-  width: 100%; /* 부모 컨테이너의 전체 너비를 차지 */
-  max-width: 280px; /* 최대 너비를 고정하여 균일한 레이아웃 유지 */
-  margin-bottom: 10px; /* 요소 간의 간격 */
+  justify-content: space-between;
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 10px;
 `;
 
 const InfoNameText = styled.span`
-  flex: 1; /* 이름 텍스트가 가변적으로 공간을 차지 */
+  flex: 1;
   font-size: 17px;
   font-weight: bold;
   color: #2d2d2d;
-  text-align: left; /* 텍스트를 왼쪽 정렬 */
-  margin-right: 10px; /* 오른쪽 여백 추가 */
-  white-space: nowrap
+  text-align: left;
+  margin-right: 10px;
+  white-space: nowrap;
 `;
 
 const InfoContainer = styled.div`
-  flex: 2; /* 입력 박스가 가변적으로 공간을 차지 */
+  flex: 2;
   height: 37px;
   border-radius: 4px;
   border: 1px solid #c9c9c9;
   display: flex;
-  align-items: center; /* 중앙 정렬 */
-  justify-content: center; /* 텍스트를 가운데 정렬 */
-  background-color: #f5f5f5; /* 약간의 배경색 추가 */
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
 `;
 
 const InfoText = styled.span`
@@ -180,7 +207,6 @@ const InfoText = styled.span`
   color: #555555;
   text-align: center;
 `;
-
 
 const EditButton = styled.button`
   display: block;

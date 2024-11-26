@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
+// import axios from "axios";
 
-export const HeartIcon = () => { // 명명된 내보내기
+interface HeartIconProps {
+  id: number;
+  type: "deposit" | "saving" | "card";
+}
+
+export const HeartIcon: React.FC<HeartIconProps> = ({ id, type }) => {
   const [isActive, setIsActive] = useState(false);
 
-  const toggleHeart = () => {
-    setIsActive((prev) => !prev);
+  const toggleHeart = async () => {
+    try {
+      if (isActive) {
+        console.log("취소", { id, type });
+        // const deleteUrl = `/recommend/bookmark/${type}Cancel?${type}Id=${id}`;
+        // await axios.delete(deleteUrl);
+      } else {
+        console.log("추가", { id, type });
+        // const postUrl = `/recommend/bookmark/${type}Like?${type}Id=${id}`;
+        // await axios.post(postUrl);
+      }
+      setIsActive((prev) => !prev); 
+    } catch (error) {
+      console.error("Failed to update bookmark:", error);
+    }
   };
 
   return (
-    <Icon 
-      src={isActive ? "/assets/colorheart.svg" : "/assets/heart.svg"} 
-      alt="Heart" 
+    <Icon
+      src={isActive ? "/assets/colorheart.svg" : "/assets/heart.svg"}
+      alt="Heart"
       onClick={toggleHeart}
     />
   );

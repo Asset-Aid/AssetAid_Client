@@ -57,7 +57,7 @@ const DepositModal = ({ visible, onClose, id }: DepositModalProps) => {
     <ModalOverlay visible={visible}>
       <ModalContainer>
         <ModalHeader>
-          <HeartIcon />
+          <HeartIcon id={id} type="deposit" />
           <CloseButton onClick={onClose}>
             <ExitIcon src="/assets/exiticon.png" alt="Exit" />
           </CloseButton>

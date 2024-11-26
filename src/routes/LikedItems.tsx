@@ -1,51 +1,45 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
+import DepositModal from "../component/modal/DepositModal";
+import SavingModal from "../component/modal/SavingModal";
+import CardModal from "../component/modal/CardModal";
 
 const LikedData = [
   {
-    name: "NH든든밥심예금",
-    bank: "농협",
-    type: "예금",
-    salePeriod: "2023-12-31까지",
-    joinPeriod: "5년",
-    joinAmount: "1,000,000원",
-    baseInterest: "3.0%",
-    maxInterest: "4.5%"
+    bookmark_id: 1,
+    product_type: "card",
+    product_id: 1,
+    product_name: "Platinum Credit Card",
+    benefit: "Travel rewards",
   },
   {
-    name: "국민VIP정기예금",
-    bank: "국민은행",
-    type: "예금",
-    salePeriod: "2023-11-30까지",
-    joinPeriod: "3년",
-    joinAmount: "500,000원",
-    baseInterest: "2.5%",
-    maxInterest: "3.8%"
+    bookmark_id: 2,
+    product_type: "saving",
+    product_id: 2,
+    product_name: "High Interest Savings",
+    bank: "ABC Bank",
   },
   {
-    name: "NH든든밥심예금",
-    bank: "농협",
-    type: "예금",
-    salePeriod: "2023-12-31까지",
-    joinPeriod: "5년",
-    joinAmount: "1,000,000원",
-    baseInterest: "3.0%",
-    maxInterest: "4.5%"
+    bookmark_id: 3,
+    product_type: "deposit",
+    product_id: 3,
+    product_name: "Fixed Term Deposit",
+    bank: "XYZ Bank",
   },
-  {
-    name: "국민VIP정기예금",
-    bank: "국민은행",
-    type: "예금",
-    salePeriod: "2023-11-30까지",
-    joinPeriod: "3년",
-    joinAmount: "500,000원",
-    baseInterest: "2.5%",
-    maxInterest: "3.8%"
-  },
-  
 ];
 
 const LikedItems = () => {
+  const [selectedItem, setSelectedItem] = useState<{
+    type: string;
+    id: number;
+  } | null>(null);
+
+  const handleCloseModal = () => setSelectedItem(null);
+
+  const handleItemClick = (type: string, id: number) => {
+    setSelectedItem({ type, id });
+  };
+
   return (
     <Container>
       <Header>
@@ -57,37 +51,57 @@ const LikedItems = () => {
         <Title>찜한 상품</Title>
         <Separator />
       </MyPageHeader>
-      {LikedData.map((item, index) => (
-        <Item key={index}>
+      <ItemContainer>
+      {LikedData.map((item) => (
+        <Item
+          key={item.bookmark_id}
+          onClick={() => handleItemClick(item.product_type, item.product_id)}
+        >
           <NameContainer>
-            <NameText>{item.name}</NameText>
-            <NameText>|</NameText>
-            <NameText>{item.bank}</NameText>
-            <NameText>|</NameText>
-            <NameText>{item.type}</NameText>
+            <NameText>{item.product_name}</NameText>
+            {item.product_type === "card" && <NameText>| 카드</NameText>}
+            {(item.product_type === "saving" || item.product_type === "deposit") && (
+              <>
+                <NameText>|</NameText>
+                <NameText>{item.bank}</NameText>
+                <NameText>
+                  {item.product_type === "saving" ? "| 적금" : "| 예금"}
+                </NameText>
+              </>
+            )}
           </NameContainer>
-          <ContextRow>
-            <ContentText>* 판매 기간 : </ContentText>
-            <ContentText>{item.salePeriod}</ContentText>
-          </ContextRow>
-          <ContextRow>
-            <ContentText>* 가입 기간 : </ContentText>
-            <ContentText>{item.joinPeriod}</ContentText>
-          </ContextRow>
-          <ContextRow>
-            <ContentText>* 가입 금액 : </ContentText>
-            <ContentText>{item.joinAmount}</ContentText>
-          </ContextRow>
-          <ContextRow>
-            <ContentText>* 기본 금리 : </ContentText>
-            <ContentText>{item.baseInterest}</ContentText>
-          </ContextRow>
-          <ContextRow>
-            <ContentText>* 최고 금리 : </ContentText>
-            <ContentText>{item.maxInterest}</ContentText>
-          </ContextRow>
+          {item.product_type === "card" && (
+            <ContextRow>
+              <ContentText>* 혜택: </ContentText>
+              <ContentText>{item.benefit}</ContentText>
+            </ContextRow>
+          )}
         </Item>
       ))}
+
+      </ItemContainer>
+      
+      {selectedItem && selectedItem.type === "deposit" && (
+        <DepositModal
+          visible={true}
+          onClose={handleCloseModal}
+          id={selectedItem.id}
+        />
+      )}
+      {selectedItem && selectedItem.type === "saving" && (
+        <SavingModal
+          visible={true}
+          onClose={handleCloseModal}
+          id={selectedItem.id}
+        />
+      )}
+      {selectedItem && selectedItem.type === "card" && (
+        <CardModal
+          visible={true}
+          onClose={handleCloseModal}
+          id={selectedItem.id}
+        />
+      )}
     </Container>
   );
 };
@@ -126,6 +140,24 @@ const MyPageHeader = styled.div`
   margin-bottom: 10px;
 `;
 
+const ItemContainer = styled.div`
+  height:500px;
+  overflow-x:hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #FC7900 #FFFFFF;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #FC7900;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #FFFFFF;
+  }
+`;
+
 const Title = styled.p`
   font-size: 16px;
   color: #2d2d2d;
@@ -140,12 +172,16 @@ const Separator = styled.hr`
 
 const Item = styled.div`
   width: 320px;
-  height: 120px;
   background-color: #f5f5f5;
   border-radius: 20px;
   margin-bottom: 10px;
   padding: 15px;
   box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e8e8e8;
+  }
 `;
 
 const NameContainer = styled.div`
