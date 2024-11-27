@@ -25,7 +25,7 @@ const SliderTrack = styled.div`
   position: relative;
   width: 100%;
   height: 8px;
-  background: #ffa500;
+  background: #f58748;
   border-radius: 4px;
   margin-top: 20px;
 `;
