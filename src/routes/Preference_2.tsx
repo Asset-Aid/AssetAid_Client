@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import SliderComponent from "../component/preference/sliderComponent";
 
 interface Preference2Props {
   nickname: string;
@@ -39,37 +40,18 @@ const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
         <Highlight>{dummyData.nickname}</Highlight> 님의 월 소득 수준을
         알려주세요
       </Title>
-      <SliderContainer>
-        <div className="slider-wrapper">
-          <span>₩100,000이하</span>
-          <input type="range" min="0" max="100" />
-          <span>₩1,000,000,000이상</span>
-        </div>
-      </SliderContainer>
+      <SliderComponent />
 
       <Title>
         <Highlight>{dummyData.nickname}</Highlight> 님의 월 평균 지출 금액을
         알려주세요
       </Title>
-      <SliderContainer>
-        <div className="slider-wrapper">
-          <span>₩100,000이하</span>
-          <input type="range" min="0" max="100" />
-          <span>₩1,000,000,000이상</span>
-        </div>
-      </SliderContainer>
+      <SliderComponent />
 
       <Title>
         <Highlight>{dummyData.nickname}</Highlight> 님의 부채 금액을 알려주세요
       </Title>
-      <SliderContainer>
-        <div className="slider-wrapper">
-          <span>₩100,000이하</span>
-          <input type="range" min="0" max="100" />
-          <span>₩1,000,000,000이상</span>
-        </div>
-      </SliderContainer>
-
+      <SliderComponent />
       <Title>
         <Highlight>{dummyData.nickname}</Highlight> 님의 선호 및 사용중인 은행을
         알려주세요
@@ -264,7 +246,10 @@ const NextButton = styled.button`
   width: 312px;
   height: 49px;
   flex-shrink: 0;
+  border-radius: 2px;
+  border: 1px solid #c8c4bb;
   color: #c8c4bb;
+  background: none;
   text-align: center;
   font-family: Pretendard;
   font-size: 20px;
