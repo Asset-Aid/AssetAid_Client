@@ -257,13 +257,14 @@ const RecommendMain: React.FC = () => {
       >
         {cardData.map(renderItem)}
       </Carousel>
-      <StyledButton onClick={() => navigate('/DepositSearch')}>
+      <StyledButton onClick={() => navigate("/DepositSearch")}>
         {" "}
         금융상품 찾아보기
       </StyledButton>
     </Container>
   );
 };
+export default RecommendMain;
 
 const Container = styled.div`
   background-color: #fff;
@@ -302,6 +303,7 @@ const SectionTitle = styled.h2`
 const CardWrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin: 8px;
 `;
 const CustomLeftArrow = ({ onClick }: any) => {
   return (
@@ -360,5 +362,8 @@ const StyledButton = styled.button`
     background-color: #e67300;
   }
 `;
-
-export default RecommendMain;
+const CarouselStyled = styled(Carousel)`
+  .react-multi-carousel-item {
+    margin-right: 8px;
+  }
+`;

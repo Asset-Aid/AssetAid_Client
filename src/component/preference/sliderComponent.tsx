@@ -15,8 +15,12 @@ const SliderValues = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  font-size: 12px;
-  color: #999;
+  color: #797979;
+  font-family: Pretendard;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
   margin-bottom: 5px;
   margin-top: 5px;
 `;

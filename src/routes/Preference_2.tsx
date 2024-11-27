@@ -12,6 +12,12 @@ const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
     nickname: "부자되십송",
   };
   const navigate = useNavigate();
+  const handleNext = () => {
+    navigate("/preference/goal");
+  };
+  const handleHome = () => {
+    navigate("/home");
+  };
   return (
     <Container>
       <Header>
@@ -82,8 +88,8 @@ const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
       </Description>
 
       <Footer>
-        <NextButton>다음으로</NextButton>
-        <StopButton>그만하기</StopButton>
+        <NextButton onClick={handleNext}>다음으로</NextButton>
+        <StopButton onClick={handleHome}>그만하기</StopButton>
       </Footer>
     </Container>
   );
@@ -207,28 +213,6 @@ const Button = styled.button`
 
   &:hover {
     background-color: #ff8000;
-  }
-`;
-
-const SliderContainer = styled.div`
-  width: 100%;
-  max-width: 600px;
-  margin: 20px 0;
-
-  label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-
-  .slider-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  input[type="range"] {
-    flex: 1;
   }
 `;
 

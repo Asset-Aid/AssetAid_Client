@@ -33,8 +33,10 @@ const GlobalStyles = createGlobalStyle`
   }
 
   #root {
-    width: 360px;
-    height: 640px;
+    width: 100%;
+    max-width: 360px;
+    min-height: 640px;
+    height: 100vh;
     background-color: white;
     border: 1px solid #ccc;
     overflow-y: auto; 
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <GuestMain />,
+  },
+  {
+    path: "/home",
+    element: <RecommendMain />,
   },
   {
     path: "/DepositSearch",
