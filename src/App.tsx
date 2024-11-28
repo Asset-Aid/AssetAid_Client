@@ -2,11 +2,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import { AuthProvider } from "./AuthContext";
 import RecommendMain from "./routes/RecommendMain";
-import MyPage from "./routes/MyPage";
-import EditUserInfo from "./routes/EditUserInfo";
-import FinancialProfile from "./routes/FinancialProfile";
-import FinancialGoals from "./routes/FinancialGoal";
-import LikedItems from "./routes/LikedItems";
+// import MyPage from "./routes/MyPage";
+// import EditUserInfo from "./routes/EditUserInfo";
+// import FinancialProfile from "./routes/FinancialProfile";
+// import FinancialGoals from "./routes/FinancialGoal";
+// import LikedItems from "./routes/LikedItems";
 import DepositSearch from "./routes/DepositSearch";
 import SavingSearch from "./routes/SavingSearch";
 import CardSearch from "./routes/CardSearch";
@@ -19,6 +19,7 @@ import PreferenceGoal1 from "./routes/preference_goal_1";
 import PreferenceGoalShort from "./routes/preference_goal_short";
 import PreferenceGoalLong from "./routes/preference_goal_long";
 import Preference3 from "./routes/Preference_3";
+import Preference4 from "./routes/preference_4";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
   {
     path: "/preference/style",
     element: <Preference3 />,
+  },
+  {
+    path: "/preference/end",
+    element: <Preference4 />,
   },
 ]);
 function App() {

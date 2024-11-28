@@ -3,19 +3,7 @@ import styled from "styled-components";
 import GoalCard from "../component/preference/GoalCard";
 import { useNavigate } from "react-router-dom";
 
-interface PreferenceGoal1Props {
-  nickname: string;
-  shortTermCount: number;
-  longTermCount: number;
-}
-
-const PreferenceGoal1: React.FC<PreferenceGoal1Props> = (
-  {
-    //   nickname,
-    //   shortTermCount,
-    //   longTermCount,
-  }
-) => {
+const PreferenceGoal1: React.FC = () => {
   const dummyData = {
     nickname: "부자되십송",
     shortTermCount: 2,

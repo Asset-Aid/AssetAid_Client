@@ -2,11 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-interface Preference1Props {
-  nickname: string;
-}
-
-const Preference1: React.FC<Preference1Props> = ({ nickname }) => {
+const Preference1: React.FC = () => {
   const dummyData = {
     nickname: "부자되십송",
   };

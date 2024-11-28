@@ -3,11 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SliderComponent from "../component/preference/sliderComponent";
 
-interface Preference2Props {
-  nickname: string;
-}
-
-const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
+const Preference2: React.FC = () => {
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
   const [selectedBanks, setSelectedBanks] = useState<string[]>([]);
   const dummyData = {

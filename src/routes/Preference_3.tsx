@@ -14,6 +14,9 @@ const Preference3: React.FC = () => {
   const handleHome = () => {
     navigate("/home");
   };
+  const handleBefore = () => {
+    navigate("/preference/goal/start");
+  };
 
   const handleKnowledgeClick = (level: string) => setKnowledgeLevel(level);
   const handlePreferenceClick = (pref: string) => setPreference(pref);
@@ -21,7 +24,7 @@ const Preference3: React.FC = () => {
   return (
     <Container>
       <Header>
-        <BackButton onClick={() => navigate(-1)}>{"<"}</BackButton>
+        <BackButton onClick={handleBefore}>{"<"}</BackButton>
         <Logo src="/assets/logo1.png" />
       </Header>
       <Title>
