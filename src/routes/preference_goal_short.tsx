@@ -118,8 +118,9 @@ const PreferenceGoalShort: React.FC = () => {
 
       <Summary>
         <Nickname>부자되십송</Nickname> 님은 <Goal>{goal}</Goal>을 위해{" "}
-        <Amount>₩{amount.toLocaleString()}</Amount>을 {frequency}
+        <Amount>₩{amount.toLocaleString()}</Amount>을 {frequency}{" "}
         <Savings>₩{savingsPerPeriod.toLocaleString()}</Savings>만큼 저축하며{" "}
+        <br />
         <DateCheck>
           {year}년 {month}월 {day}일
         </DateCheck>{" "}
@@ -213,7 +214,7 @@ const Nickname = styled.span`
   color: #fc7900;
   text-align: center;
   font-family: Pretendard;
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -270,7 +271,7 @@ const FrequencyButtonContainer = styled.div`
 `;
 
 const FrequencyButton = styled.button<{ active: boolean }>`
-  background-color: ${({ active }) => (active ? "orange" : "#f1f1f1")};
+  background-color: ${({ active }) => (active ? "#FC7900" : "#f1f1f1")};
   color: ${({ active }) => (active ? "#fff" : "#333")};
   border: none;
   border-radius: 20px;
@@ -287,13 +288,14 @@ const FrequencyButton = styled.button<{ active: boolean }>`
 `;
 
 const Summary = styled.div`
-  background-color: #f9f9f9;
+  background: none;
+  border: 0.3px solid #bbb;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
   color: #000;
   font-family: Pretendard;
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -303,7 +305,7 @@ const Goal = styled.span`
   color: #fc7900;
   text-align: center;
   font-family: Pretendard;
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -313,7 +315,7 @@ const Amount = styled.span`
   color: #fc7900;
   text-align: center;
   font-family: Pretendard;
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -322,7 +324,7 @@ const Savings = styled.span`
   color: #fc7900;
   text-align: center;
   font-family: Pretendard;
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -332,7 +334,7 @@ const DateCheck = styled.span`
   color: #fc7900;
   text-align: center;
   font-family: Pretendard;
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
