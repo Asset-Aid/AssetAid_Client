@@ -14,8 +14,16 @@ const Preference1: React.FC<Preference1Props> = ({ nickname }) => {
   const handleNext = () => {
     navigate("/preference/basic");
   };
+  const handleHome = () => {
+    navigate("/home");
+  };
   return (
     <Container>
+      <Header>
+        <BackButton onClick={handleHome}>
+          <Logo src="/assets/logo1.png" />
+        </BackButton>
+      </Header>
       <Title1>
         환영합니다 <Highlight>{dummyData.nickname}</Highlight> 님의
       </Title1>
@@ -95,5 +103,23 @@ const StartButton = styled.button`
     background-color: #ff8000;
   }
 `;
-
+const BackButton = styled.button`
+  width: 100px;
+  height: 13.514px;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+  margin-left: 80px;
+  margin-right: 100px;
+  cursor: pointer;
+`;
+const Logo = styled.img`
+  width: 90px;
+  height: 11px;
+`;
+const Header = styled.div`
+  display: flex;
+  align-items: left;
+  margin-bottom: 100px;
+`;
 export default Preference1;

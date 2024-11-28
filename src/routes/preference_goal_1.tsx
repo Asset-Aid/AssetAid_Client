@@ -29,10 +29,16 @@ const PreferenceGoal1: React.FC<PreferenceGoal1Props> = (
   const handleLong = () => {
     navigate("/preference/goal/long");
   };
+  const handleHome = () => {
+    navigate("/home");
+  };
+  const handleBefore = () => {
+    navigate("/preference/basic");
+  };
   return (
     <Container>
       <Header>
-        <BackButton onClick={() => navigate(-1)}>{"<"}</BackButton>
+        <BackButton onClick={handleBefore}>{"<"}</BackButton>
         <Logo src="/assets/logo1.png" />
       </Header>
       <Progress>
@@ -65,7 +71,7 @@ const PreferenceGoal1: React.FC<PreferenceGoal1Props> = (
           shortTermCount={dummyData.shortTermCount}
           longTermCount={dummyData.longTermCount}
         />
-        <StopButton>그만하기</StopButton>
+        <StopButton onClick={handleHome}>그만하기</StopButton>
       </Footer>
     </Container>
   );
@@ -207,6 +213,7 @@ const StopButton = styled.button`
   font-size: 10px;
   font-style: normal;
   font-weight: 700;
+  cursor: pointer;
   line-height: normal;
   text-decoration-line: underline;
   text-decoration-style: solid;

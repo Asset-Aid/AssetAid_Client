@@ -37,13 +37,19 @@ const PreferenceGoalShort: React.FC = () => {
     setSavingsPerPeriod(savings);
   }, [amount, year, month, day, frequency]);
   const navigate = useNavigate();
-  const handelGoalHome = () => {
+  const handleGoalHome = () => {
     navigate("/preference/goal/start");
+  };
+  const handleNext = () => {
+    navigate("/preference/style");
+  };
+  const handleHome = () => {
+    navigate("/home");
   };
   return (
     <Container>
       <Header>
-        <BackButton onClick={handelGoalHome}>{"<"}</BackButton>
+        <BackButton onClick={handleGoalHome}>{"<"}</BackButton>
         <Logo src="/assets/logo1.png" />
       </Header>
       <Progress>
@@ -127,8 +133,8 @@ const PreferenceGoalShort: React.FC = () => {
       </Summary>
 
       <ButtonContainer>
-        <NextButton>다음으로</NextButton>
-        <StopButton>그만하기</StopButton>
+        <NextButton onClick={handleNext}>다음으로</NextButton>
+        <StopButton onClick={handleHome}>그만하기</StopButton>
       </ButtonContainer>
     </Container>
   );
@@ -349,6 +355,7 @@ const NextButton = styled.button`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  cursor: pointer;
 `;
 const StopButton = styled.button`
   width: 60.75px;
@@ -370,5 +377,6 @@ const StopButton = styled.button`
   text-decoration-thickness: auto;
   text-underline-offset: auto;
   text-underline-position: from-font;
+  cursor: pointer;
 `;
 export default PreferenceGoalShort;

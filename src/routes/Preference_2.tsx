@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SliderComponent from "../component/preference/sliderComponent";
@@ -8,20 +8,40 @@ interface Preference2Props {
 }
 
 const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
+  const [selectedJob, setSelectedJob] = useState<string | null>(null);
+  const [selectedBanks, setSelectedBanks] = useState<string[]>([]);
   const dummyData = {
     nickname: "부자되십송",
   };
   const navigate = useNavigate();
+
+  const handleBefore = () => {
+    navigate("/preference/start");
+  };
   const handleNext = () => {
     navigate("/preference/goal/start");
   };
+
   const handleHome = () => {
     navigate("/home");
   };
+
+  const handleJobSelect = (job: string) => {
+    setSelectedJob(job);
+  };
+
+  const handleBankToggle = (bank: string) => {
+    if (selectedBanks.includes(bank)) {
+      setSelectedBanks(selectedBanks.filter((b) => b !== bank));
+    } else {
+      setSelectedBanks([...selectedBanks, bank]);
+    }
+  };
+
   return (
     <Container>
       <Header>
-        <BackButton onClick={() => navigate(-1)}>{"<"}</BackButton>
+        <BackButton onClick={handleBefore}>{"<"}</BackButton>
         <Logo src="/assets/logo1.png" />
       </Header>
       <Progress>
@@ -35,14 +55,17 @@ const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
       <Title>
         <Highlight>{dummyData.nickname}</Highlight> 님의 직업군을 알려주세요
       </Title>
-      <ButtonContainer>
-        <HorizontalContainer>
-          <Button>학생</Button>
-          <Button>비정규직</Button>
-          <Button>정규직</Button>
-          <Button>인턴</Button>
-        </HorizontalContainer>
-      </ButtonContainer>
+      <HorizontalContainer>
+        {["학생", "비정규직", "정규직", "인턴"].map((job) => (
+          <Button
+            key={job}
+            active={selectedJob === job}
+            onClick={() => handleJobSelect(job)}
+          >
+            {job}
+          </Button>
+        ))}
+      </HorizontalContainer>
 
       <Title>
         <Highlight>{dummyData.nickname}</Highlight> 님의 월 소득 수준을
@@ -60,30 +83,35 @@ const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
         <Highlight>{dummyData.nickname}</Highlight> 님의 부채 금액을 알려주세요
       </Title>
       <SliderComponent />
+
       <Title>
         <Highlight>{dummyData.nickname}</Highlight> 님의 선호 및 사용중인 은행을
         알려주세요
       </Title>
-      <BankButtonContainer>
-        <HorizontalContainer>
-          <Button>농협</Button>
-          <Button>토스뱅크</Button>
-          <Button>카카오뱅크</Button>
-          <Button>삼성</Button>
-        </HorizontalContainer>
-        <HorizontalContainer>
-          <Button>현대</Button>
-          <Button>케이뱅크</Button>
-          <Button>국민</Button>
-          <Button>하나</Button>
-        </HorizontalContainer>
-        <HorizontalContainer>
-          <Button>우리</Button>
-          <Button>SC제일</Button>
-          <Button>기업은행</Button>
-          <Button>지방은행</Button>
-        </HorizontalContainer>
-      </BankButtonContainer>
+      <HorizontalContainer>
+        {[
+          "농협",
+          "토스뱅크",
+          "카카오뱅크",
+          "삼성",
+          "현대",
+          "케이뱅크",
+          "국민",
+          "하나",
+          "우리",
+          "SC제일",
+          "기업은행",
+          "지방은행",
+        ].map((bank) => (
+          <Button
+            key={bank}
+            active={selectedBanks.includes(bank)}
+            onClick={() => handleBankToggle(bank)}
+          >
+            {bank}
+          </Button>
+        ))}
+      </HorizontalContainer>
       <Description>
         지방은행의 경우 경남은행, 광주은행, 대구은행, 부산은행, 전북은행,
         제주은행을 포함하고 있습니다.
@@ -99,6 +127,7 @@ const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
 
 export default Preference2;
 
+// 스타일 컴포넌트
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -108,6 +137,7 @@ const Container = styled.div`
   font-family: Arial, sans-serif;
   text-align: center;
 `;
+
 const BackButton = styled.button`
   background: none;
   border: none;
@@ -121,14 +151,16 @@ const BackButton = styled.button`
     color: #f58748;
   }
 `;
+
 const HorizontalContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개씩 배치 */
+  gap: 10px; /* 버튼 간격 */
+  justify-items: center; /* 버튼을 가운데 정렬 */
   margin-top: 10px;
+  margin-bottom: 20px;
 `;
+
 const Header = styled.div`
   display: flex;
   align-items: center;
@@ -190,19 +222,9 @@ const Highlight = styled.span`
   line-height: normal;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 3px;
-  margin-bottom: 10px;
-`;
-
-const Button = styled.button`
-  border-radius: 32.5px;
-  background: #fc7900;
-  color: #fff;
-  text-align: center;
+const Button = styled.button<{ active: boolean }>`
+  color: ${({ active }) => (active ? "#fff" : "#333")};
+  background-color: ${({ active }) => (active ? "#F58748" : "#f1f1f1")};
   font-family: Pretendard;
   font-size: 15px;
   font-style: normal;
@@ -210,17 +232,15 @@ const Button = styled.button`
   line-height: normal;
   width: 78px;
   height: 37px;
-  flex-shrink: 0;
   border: none;
+  border-radius: 9px;
   cursor: pointer;
+  text-align: center;
+  position: relative;
 
   &:hover {
-    background-color: #ff8000;
+    background-color: ${({ active }) => (active ? "#e67300" : "#ddd")};
   }
-`;
-
-const BankButtonContainer = styled(ButtonContainer)`
-  margin: 20px 0;
 `;
 
 const Footer = styled.div`
@@ -229,6 +249,7 @@ const Footer = styled.div`
   align-items: center;
   margin-top: 20px;
 `;
+
 const NextButton = styled.button`
   width: 312px;
   height: 49px;
@@ -243,7 +264,14 @@ const NextButton = styled.button`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f58748;
+    color: #fff;
+  }
 `;
+
 const StopButton = styled.button`
   width: 60.75px;
   height: 18px;
@@ -259,11 +287,7 @@ const StopButton = styled.button`
   font-weight: 700;
   line-height: normal;
   text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-skip-ink: none;
-  text-decoration-thickness: auto;
-  text-underline-offset: auto;
-  text-underline-position: from-font;
+  cursor: pointer;
 `;
 
 const Description = styled.p`

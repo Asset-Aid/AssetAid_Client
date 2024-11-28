@@ -14,7 +14,7 @@ const SliderComponent: React.FC = () => {
       <SliderTrack>
         <SliderThumb left={`${value}%`}>
           <SliderLabel>
-            ₩{Math.round(value * 10000000).toLocaleString()}
+            ₩{Math.round(value * 50000).toLocaleString()}
           </SliderLabel>
         </SliderThumb>
         <SliderInput
@@ -27,7 +27,7 @@ const SliderComponent: React.FC = () => {
       </SliderTrack>
       <SliderValues>
         <span>₩100,000 이하</span>
-        <span>₩1,000,000,000 이상</span>
+        <span>₩5,000,000 이상</span>
       </SliderValues>
     </SliderWrapper>
   );
