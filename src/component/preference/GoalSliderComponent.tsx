@@ -2,38 +2,47 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import labelImage from "/assets/label.png";
 
-const SliderComponent: React.FC = () => {
+interface GoalSliderComponentProps {
+  amount: number;
+  setAmount: (value: number) => void;
+}
+
+const GoalSliderComponent: React.FC<GoalSliderComponentProps> = ({
+  amount,
+  setAmount,
+}) => {
   const [value, setValue] = useState(50);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(e.target.value));
+    const newValue = Number(e.target.value);
+    setValue(newValue);
+    setAmount(newValue * 100000);
   };
 
   return (
     <SliderWrapper>
       <SliderTrack>
-        <SliderThumb left={`${value}%`}>
-          <SliderLabel>
-            ₩{Math.round(value * 10000000).toLocaleString()}
-          </SliderLabel>
+        <SliderThumb left={`${(value / 50) * 100}%`}>
+          <SliderLabel>₩{(value * 100000).toLocaleString()}</SliderLabel>
         </SliderThumb>
         <SliderInput
           type="range"
-          min="0"
-          max="100"
+          min="1"
+          max="50"
+          step="1"
           value={value}
           onChange={handleChange}
         />
       </SliderTrack>
       <SliderValues>
-        <span>₩100,000 이하</span>
-        <span>₩1,000,000,000 이상</span>
+        <span>₩100,000</span>
+        <span>₩5,000,000</span>
       </SliderValues>
     </SliderWrapper>
   );
 };
 
-export default SliderComponent;
+export default GoalSliderComponent;
 
 const SliderWrapper = styled.div`
   display: flex;

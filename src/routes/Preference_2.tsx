@@ -13,7 +13,7 @@ const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
   };
   const navigate = useNavigate();
   const handleNext = () => {
-    navigate("/preference/goal");
+    navigate("/preference/goal/start");
   };
   const handleHome = () => {
     navigate("/home");
@@ -25,9 +25,11 @@ const Preference2: React.FC<Preference2Props> = ({ nickname }) => {
         <Logo src="/assets/logo1.png" />
       </Header>
       <Progress>
-        <Level>1</Level>
-        <Level>2</Level>
-        <Level>3</Level>
+        <Circle active>1</Circle>
+        <Dots />
+        <Circle>2</Circle>
+        <Dots />
+        <Circle>3</Circle>
       </Progress>
 
       <Title>
@@ -116,7 +118,7 @@ const BackButton = styled.button`
   margin-right: 10px;
 
   &:hover {
-    color: #00c853;
+    color: #f58748;
   }
 `;
 const HorizontalContainer = styled.div`
@@ -143,28 +145,29 @@ const Logo = styled.img`
 
 const Progress = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 10px;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
 `;
-const Level = styled.div`
-   width: 20px;
-height: 20px;
-flex-shrink: 0;
-    border-radius: 50%;
-    background: #ddd;
-    color: #F5F5F5;
-text-align: center;
-font-family: Pretendard;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin-top : -10px;
 
+const Circle = styled.div<{ active?: boolean }>`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: ${({ active }) => (active ? "#F58748" : "#C8C4BB")};
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+`;
 
-    &:nth-child(1) {
-      background: #F58748;
+const Dots = styled.div`
+  width: 40px;
+  height: 2px;
+  background-color: #c8c4bb;
+  border-radius: 2px;
 `;
 
 const Title = styled.h2`
