@@ -46,8 +46,8 @@ const Title = styled.h3`
 
 const ImageContainer = styled.div`
   position: absolute;
-  top: 80px;
-  right: 70px;
+  top: 85px;
+  right: 5px;
 `;
 
 const Character = styled.img`

@@ -30,7 +30,6 @@ const CardContainer = styled.div`
   padding: 16px;
   margin: 8px 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  display: flex;
   flex-direction: column;
   position: relative;
 `;
@@ -45,7 +44,7 @@ const Title = styled.h3`
 const ImageContainer = styled.div`
   position: absolute;
   top: 85px;
-  right: 70px;
+  right: 5px;
 `;
 
 const Character = styled.img`
