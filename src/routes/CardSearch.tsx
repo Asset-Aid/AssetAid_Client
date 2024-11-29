@@ -4,25 +4,32 @@ import { useNavigate } from 'react-router-dom';
 
 const CardSearch = () => {
   const navigate = useNavigate();
-  const [selectedBenefit, setSelectedBenefit] = useState<string | null>(null);
+  const [selectedBenefits, setSelectedBenefits] = useState<string[]>([]);
 
-  const benefits = [
-    '편의점', '음식', '주유', '통신', '교통', '쇼핑', '여행',
-  ];
+  const benefits = ['편의점', '음식', '주유', '통신', '교통', '쇼핑', '여행'];
 
   const handleBenefitSelect = (benefit: string) => {
-    setSelectedBenefit(selectedBenefit === benefit ? null : benefit);
+    setSelectedBenefits((prev) =>
+      prev.includes(benefit) ? prev.filter((b) => b !== benefit) : [...prev, benefit]
+    );
   };
 
   const handleSearch = () => {
-    if (selectedBenefit) {
-      //navigate('/CardSearch');
+    if (selectedBenefits.length > 0) {
+      const requestData = { benefits: selectedBenefits };
+      console.log('Sending requestData:', requestData);
+
+      /*
+      axios
+        .post('/search/cards', requestData)
+        .then((response => console.log(response.data))
+        .catch(error => console.error(error));
+      */
     }
   };
 
   return (
     <Container>
-
       <Header>
         <BackIcon src="/assets/backicon.png" alt="Back" />
         <Logo src="/assets/logo1.png" alt="Logo" />
@@ -47,7 +54,7 @@ const CardSearch = () => {
           {benefits.map((benefit, index) => (
             <BenefitButton
               key={index}
-              selected={selectedBenefit === benefit}
+              selected={selectedBenefits.includes(benefit)}
               onClick={() => handleBenefitSelect(benefit)}
             >
               <BenefitText>{benefit}</BenefitText>
@@ -57,10 +64,10 @@ const CardSearch = () => {
       </SearchContainer>
 
       <ButtonContainer>
-        <ResetButton onClick={() => setSelectedBenefit(null)}>
+        <ResetButton onClick={() => setSelectedBenefits([])}>
           <ButtonText>초기화</ButtonText>
         </ResetButton>
-        <SearchButton onClick={handleSearch} disabled={!selectedBenefit}>
+        <SearchButton onClick={handleSearch} disabled={selectedBenefits.length === 0}>
           <ButtonText>검색</ButtonText>
         </SearchButton>
       </ButtonContainer>
@@ -191,4 +198,5 @@ const SearchButton = styled.button<{ disabled: boolean }>`
 `;
 
 export default CardSearch;
+
 

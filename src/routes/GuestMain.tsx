@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import BannerCarousel from "../component/banner/BannerCarousel";
-import DepositModal from "../component/modal/DepositModal"; 
-import SavingModal from "../component/modal/SavingModal"; 
-import CardModal from "../component/modal/CardModal"; 
+import DepositModal from "../component/modal/DepositModal";
+import SavingModal from "../component/modal/SavingModal";
+import CardModal from "../component/modal/CardModal";
+import useFetchViewCount from "../hooks/useFetchViewCount"; 
 
 const DepositData = [
   { depositName: "LIVE정기예금", bank: "부산은행", depositId: 615 },
@@ -22,7 +23,6 @@ const CardData = [
   { cardId: 3, cardName: "현대카드 M현대카드", bank: "현대카드" },
 ];
 
-
 interface ModalData {
   type: 'deposit' | 'saving' | 'card';
   id: number;
@@ -32,11 +32,11 @@ const GuestMain = () => {
   const navigate = useNavigate();
   const [modalData, setModalData] = useState<ModalData | null>(null);
 
+  useFetchViewCount(modalData?.type || "deposit", modalData?.id || null);
 
   const handleItemClick = (type: 'deposit' | 'saving' | 'card', id: number) => {
-    setModalData({ type, id }); 
+    setModalData({ type, id });
   };
-
 
   const closeModal = () => setModalData(null);
 
@@ -51,7 +51,6 @@ const GuestMain = () => {
         금융상품 찾아보기
       </StyledButton>
       <SectionTitle>실시간 인기 차트</SectionTitle>
-
 
       <ChartSection>
         <ChartTitle>

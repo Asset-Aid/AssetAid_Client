@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SavingSearch = () => {
   const navigate = useNavigate(); 
-  const [selectedBank, setSelectedBank] = useState<string | null>(null);
+  const [selectedBanks, setSelectedBanks] = useState<string[]>([]); 
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [selectedTerm, setSelectedTerm] = useState<string | null>(null);
 
@@ -13,7 +13,11 @@ const SavingSearch = () => {
   ];
 
   const handleBankSelect = (bank: string) => {
-    setSelectedBank(selectedBank === bank ? null : bank);
+    setSelectedBanks(prevSelected => 
+      prevSelected.includes(bank) 
+        ? prevSelected.filter(b => b !== bank) 
+        : [...prevSelected, bank]
+    );
   };
 
   const handleTypeSelect = (type: string) => {
@@ -25,8 +29,21 @@ const SavingSearch = () => {
   };
 
   const handleSearch = () => {
-    if (selectedBank && selectedType && selectedTerm) {
-      //navigate('/SavingSearch');  
+    if (selectedBanks.length > 0 && selectedType && selectedTerm) {
+      const requestData = {
+        banks: selectedBanks,
+        savingType: selectedType,
+        maturity: selectedTerm
+      };
+      
+      console.log('Request Data:', requestData);
+      
+      /*
+      axios
+        .post('/search/savings', requestData)
+        .then((response => console.log(response.data))
+        .catch(error => console.error(error));
+      */
     }
   };
 
@@ -43,7 +60,7 @@ const SavingSearch = () => {
         <SelectButton onClick={() => navigate('/DepositSearch')}>
           <ButtonText>예금</ButtonText>
         </SelectButton>
-        <SelectButton isSaving >
+        <SelectButton isSaving>
           <ButtonText>적금</ButtonText>
         </SelectButton>
         <SelectButton onClick={() => navigate('/CardSearch')}>
@@ -57,7 +74,7 @@ const SavingSearch = () => {
           {banks.map((bank, index) => (
             <BankButton
               key={index}
-              selected={selectedBank === bank}
+              selected={selectedBanks.includes(bank)}
               onClick={() => handleBankSelect(bank)}
             >
               <BankText>{bank}</BankText>
@@ -87,10 +104,16 @@ const SavingSearch = () => {
       </SearchContainer>
 
       <ButtonContainer>
-        <ResetButton>
+        <ResetButton
+          onClick={() => {
+            setSelectedBanks([]);
+            setSelectedType(null);
+            setSelectedTerm(null);
+          }}
+        >
           <ButtonText>초기화</ButtonText>
         </ResetButton>
-        <SearchButton onClick={handleSearch} disabled={!selectedBank || !selectedType || !selectedTerm}>
+        <SearchButton onClick={handleSearch} disabled={selectedBanks.length === 0 || !selectedType || !selectedTerm}>
           <ButtonText>검색</ButtonText>
         </SearchButton>
       </ButtonContainer>
@@ -271,4 +294,3 @@ const SearchButton = styled.button<{ disabled: boolean }>`
 `;
 
 export default SavingSearch;
-

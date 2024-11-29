@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 const DepositSearch = () => {
   const navigate = useNavigate(); 
-  const [selectedBank, setSelectedBank] = useState<string | null>(null);
-  const [selectedDepositType, setSelectedDepositType] = useState<string | null>(null);
+  const [selectedBanks, setSelectedBanks] = useState<string[]>([]);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
   const [selectedTerm, setSelectedTerm] = useState<string | null>(null);
 
   const banks = [
@@ -13,11 +13,15 @@ const DepositSearch = () => {
   ];
 
   const handleBankSelect = (bank: string) => {
-    setSelectedBank(selectedBank === bank ? null : bank);
+    if (selectedBanks.includes(bank)) {
+      setSelectedBanks(selectedBanks.filter((b) => b !== bank));
+    } else {
+      setSelectedBanks([...selectedBanks, bank]);
+    }
   };
 
-  const handleDepositTypeSelect = (type: string) => {
-    setSelectedDepositType(type);
+  const handleTypeSelect = (type: string) => {
+    setSelectedType(type);
   };
 
   const handleTermSelect = (term: string) => {
@@ -25,14 +29,22 @@ const DepositSearch = () => {
   };
 
   const handleSearch = () => {
-    if (selectedBank && selectedDepositType && selectedTerm) {
-      //navigate('/SavingSearch');  
+    if (selectedBanks.length > 0 && selectedType && selectedTerm) {
+      const requestData = {
+        banks: selectedBanks,
+        depositType: selectedType,
+        maturity: selectedTerm,
+      };
+      console.log('Request Data:', requestData);
+
+      // axios.post('/search/deposit', requestData)
+      //   .then(response => console.log(response.data))
+      //   .catch(error => console.error(error));
     }
   };
 
   return (
     <Container>
-
       <Header>
         <BackIcon src="/assets/backicon.png" alt="Back" />
         <Logo src="/assets/logo1.png" alt="Logo" />
@@ -40,7 +52,7 @@ const DepositSearch = () => {
       </Header>
 
       <SelectContainer>   
-        <SelectButton isDeposit onClick={() => handleDepositTypeSelect('예금')}>
+        <SelectButton isDeposit onClick={() => handleTypeSelect('예금')}>
           <ButtonText>예금</ButtonText>
         </SelectButton>
         <SelectButton onClick={() => navigate('/SavingSearch')} >
@@ -57,7 +69,7 @@ const DepositSearch = () => {
           {banks.map((bank, index) => (
             <BankButton
               key={index}
-              selected={selectedBank === bank}
+              selected={selectedBanks.includes(bank)}
               onClick={() => handleBankSelect(bank)}
             >
               <BankText>{bank}</BankText>
@@ -66,14 +78,14 @@ const DepositSearch = () => {
         </BankContainer>
         <InfoText>지방은행의 경우 경남은행,광주은행,대구은행,부산은행,<br />전북은행,제주은행을 포함하고 있습니다.</InfoText>
 
-        <DepositTypeContainer>
-          <DepositTypeButton selected={selectedDepositType === '입출금자유예금'} onClick={() => handleDepositTypeSelect('입출금자유예금')}>
+        <TypeContainer>
+          <TypeButton selected={selectedType === '입출금자유예금'} onClick={() => handleTypeSelect('입출금자유예금')}>
             <BoldText>입출금자유예금</BoldText>
-          </DepositTypeButton>
-          <DepositTypeButton selected={selectedDepositType === '정기예금'} onClick={() => handleDepositTypeSelect('정기예금')}>
+          </TypeButton>
+          <TypeButton selected={selectedType === '정기예금'} onClick={() => handleTypeSelect('정기예금')}>
             <BoldText>정기예금</BoldText>
-          </DepositTypeButton>
-        </DepositTypeContainer>
+          </TypeButton>
+        </TypeContainer>
 
         <TermContainer>
           <TermText>만기</TermText>
@@ -87,10 +99,14 @@ const DepositSearch = () => {
       </SearchContainer>
 
       <ButtonContainer>
-        <ResetButton>
+        <ResetButton onClick={() => {
+          setSelectedBanks([]);
+          setSelectedType(null);
+          setSelectedTerm(null);
+        }}>
           <ButtonText>초기화</ButtonText>
         </ResetButton>
-        <SearchButton onClick={handleSearch} disabled={!selectedBank || !selectedDepositType || !selectedTerm}>
+        <SearchButton onClick={handleSearch} disabled={selectedBanks.length === 0 || !selectedType || !selectedTerm}>
           <ButtonText>검색</ButtonText>
         </SearchButton>
       </ButtonContainer>
@@ -201,12 +217,12 @@ const InfoText = styled.p`
   margin-top: 5px;
 `;
 
-const DepositTypeContainer = styled.div`
+const TypeContainer = styled.div`
   display: flex;
   margin-top: 8px;
 `;
 
-const DepositTypeButton = styled.button<{ selected: boolean }>`
+const TypeButton = styled.button<{ selected: boolean }>`
   margin: 5px;
   padding: 5px;
   width: 150px;
