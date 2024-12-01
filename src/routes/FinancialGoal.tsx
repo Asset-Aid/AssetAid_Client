@@ -131,7 +131,7 @@ const FinancialGoals = () => {
       </CarouselContainer>
 
       <AddContainer>
-        <AddIcon src="/assets/addgoalicon.png" alt="Add Goal Icon" />
+        <AddIcon src="/assets/addgoalicon.png" alt="Add Goal Icon" onClick={() => navigate("/preference/goal/start")} />
       </AddContainer>
     </Container>
   );
