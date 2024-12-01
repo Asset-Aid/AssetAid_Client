@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import axios from "axios"; 
+import axios from "axios";
+import { useAuth } from "../AuthContext";  
 
 const Login = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); 
 
   const navigate = useNavigate();
+  const { setToken } = useAuth();  // AuthContext에서 setToken을 가져옴
 
   const handleLogin = async () => {
     const loginData = {
@@ -18,12 +21,24 @@ const Login = () => {
     console.log("로그인 요청 데이터:", loginData);
 
     try {
-      // const response = await axios.post("/auth/login", loginData);
-      // console.log("로그인 성공:", response.data);
+      const response = await axios.post(
+        "http://52.79.108.131:8080/api/auth/login",
+        loginData
+      );
 
-      // navigate("/"); 
+      const { token, message, success } = response.data;
+
+      if (success) {
+        console.log("로그인 성공:", message);
+        setToken(token); // AuthContext에 토큰 저장
+        navigate("/"); 
+      } else {
+        console.error("로그인 실패:", message);
+        setErrorMessage(message); 
+      }
     } catch (error) {
-      console.error("로그인 실패:", error);
+      console.error("로그인 요청 오류:", error);
+      setErrorMessage("API 요청 실패"); 
     }
   };
 
@@ -34,6 +49,7 @@ const Login = () => {
       </Header>
 
       <Logo src="/assets/logo1.png" alt="Logo" />
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>} {/* 에러 메시지 출력 */}
       <Input
         type="text"
         placeholder="아이디"
@@ -57,9 +73,9 @@ const Login = () => {
 
 const Header = styled.div`
   display: flex;
-  align-items: center; 
-  justify-content: flex-start; 
-  width: 100%; 
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
   padding: 16px;
   border-bottom: 1px solid #eee;
 `;
@@ -129,6 +145,12 @@ const SignupLink = styled.span`
   &:hover {
     color: #e67300;
   }
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
 `;
 
 export default Login;

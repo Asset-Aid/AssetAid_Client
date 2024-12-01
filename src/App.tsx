@@ -2,11 +2,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import { AuthProvider } from "./AuthContext";
 import RecommendMain from "./routes/RecommendMain";
-// import MyPage from "./routes/MyPage";
-// import EditUserInfo from "./routes/EditUserInfo";
-// import FinancialProfile from "./routes/FinancialProfile";
-// import FinancialGoals from "./routes/FinancialGoal";
-// import LikedItems from "./routes/LikedItems";
+import MyPage from "./routes/MyPage";
+import EditUserInfo from "./routes/EditUserInfo";
+import FinancialProfile from "./routes/FinancialProfile";
+import FinancialGoals from "./routes/FinancialGoal";
+import LikedItems from "./routes/LikedItems";
 import DepositSearch from "./routes/DepositSearch";
 import SavingSearch from "./routes/SavingSearch";
 import CardSearch from "./routes/CardSearch";
@@ -106,6 +106,28 @@ const router = createBrowserRouter([
     path: "/preference/end",
     element: <Preference4 />,
   },
+  {
+    path: "/mypage",
+    element: <MyPage />,  
+  },
+  {
+    path: "/mypage/info",
+    element: <EditUserInfo />,
+  },
+  {
+    path: "/mypage/financial",
+    element: <FinancialProfile />,
+  },
+  {
+    path: "/mypage/goal",
+    element: <FinancialGoals />,
+  },
+  {
+    path: "/mypage/liked",
+    element: <LikedItems />,
+  },
+  
+  
 ]);
 function App() {
   return (
