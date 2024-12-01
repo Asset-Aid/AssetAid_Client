@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -11,6 +11,15 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { setToken } = useAuth();  // AuthContext에서 setToken을 가져옴
+
+  // 페이지 로드 시 localStorage에서 토큰을 가져와 상태에 설정
+  useEffect(() => {
+    const savedToken = localStorage.getItem("authToken");
+    if (savedToken) {
+      setToken(savedToken);
+      navigate("/"); 
+    }
+  }, [setToken, navigate]);
 
   const handleLogin = async () => {
     const loginData = {
@@ -31,6 +40,7 @@ const Login = () => {
       if (success) {
         console.log("로그인 성공:", message);
         setToken(token); // AuthContext에 토큰 저장
+        localStorage.setItem("authToken", token); // localStorage에 토큰 저장
         navigate("/"); 
       } else {
         console.error("로그인 실패:", message);
@@ -154,4 +164,5 @@ const ErrorMessage = styled.div`
 `;
 
 export default Login;
+
 
