@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { HeartIcon } from './HeartIcon';
 // import axios from 'axios';
+import { useAuth } from '../../AuthContext';
 
 interface DepositModalProps {
   visible: boolean;
@@ -23,6 +24,7 @@ interface DepositInfo {
 
 const DepositModal = ({ visible, onClose, id }: DepositModalProps) => {
   const [depositInfo, setDepositInfo] = useState<DepositInfo | null>(null);
+  const { token } = useAuth();  // AuthContext에서 토큰을 가져옵니다.
 
   useEffect(() => {
     if (visible && id) {
@@ -57,7 +59,10 @@ const DepositModal = ({ visible, onClose, id }: DepositModalProps) => {
     <ModalOverlay visible={visible}>
       <ModalContainer>
         <ModalHeader>
-          <HeartIcon id={id} type="deposit" />
+          {/* 로그인 상태에서만 하트 아이콘이 보이게 합니다 */}
+          <HeartIconContainer>
+            {token && <HeartIcon id={id} type="deposit" />}
+          </HeartIconContainer>
           <CloseButton onClick={onClose}>
             <ExitIcon src="/assets/exiticon.png" alt="Exit" />
           </CloseButton>
@@ -89,6 +94,11 @@ const DepositModal = ({ visible, onClose, id }: DepositModalProps) => {
     </ModalOverlay>
   );
 };
+
+const HeartIconContainer = styled.div`
+  width: 30px; 
+  height: 30px;
+`;
 
 const ModalOverlay = styled.div<{ visible: boolean }>`
   display: ${({ visible }) => (visible ? 'flex' : 'none')};
@@ -205,3 +215,4 @@ const DetailText = styled.p`
 `;
 
 export default DepositModal;
+

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { HeartIcon } from './HeartIcon';
 // import axios from 'axios';
+import { useAuth } from '../../AuthContext';
 
 interface CardModalProps {
   visible: boolean;
@@ -23,6 +24,7 @@ interface CardInfo {
 
 const CardModal = ({ visible, onClose, id }: CardModalProps) => {
   const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
+  const { token } = useAuth();
 
   useEffect(() => {
     if (visible && id) {
@@ -57,7 +59,9 @@ const CardModal = ({ visible, onClose, id }: CardModalProps) => {
     <ModalOverlay visible={visible}>
       <ModalContainer>
         <ModalHeader>
-          <HeartIcon id={id} type="card" />
+          <HeartIconContainer>
+            {token && <HeartIcon id={id} type="card" />}
+          </HeartIconContainer>
           <CloseButton onClick={onClose}>
             <ExitIcon src="/assets/exiticon.png" alt="Exit" />
           </CloseButton>
@@ -90,7 +94,12 @@ const CardModal = ({ visible, onClose, id }: CardModalProps) => {
   );
 };
 
-// 스타일 컴포넌트
+
+const HeartIconContainer = styled.div`
+  width: 30px; 
+  height: 30px;
+`;
+
 const ModalOverlay = styled.div<{ visible: boolean }>`
   display: ${({ visible }) => (visible ? 'flex' : 'none')};
   position: fixed;
