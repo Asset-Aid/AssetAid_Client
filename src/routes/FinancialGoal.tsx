@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -65,7 +65,7 @@ const FinancialGoalData = [
 
 const FinancialGoals = () => {
   const [selectedGoalId] = useState<number | null>(null);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const responsive = {
     desktop: {
@@ -88,9 +88,9 @@ const FinancialGoals = () => {
   return (
     <Container>
       <Header>
-        <BackIcon src="/assets/backicon.png" alt="Back" />
+        <BackIcon src="/assets/backicon.png" alt="Back" onClick={() => navigate("/mypage")}/>
         <Logo src="/assets/logo1.png" alt="Logo" />
-        <ExitIcon src="/assets/exiticon.png" alt="Exit" />
+        <ExitIcon src="/assets/exiticon.png" alt="Exit" onClick={() => navigate("/home")} />
       </Header>
       <MyPageHeader>
         <Title>재정목표 확인</Title>

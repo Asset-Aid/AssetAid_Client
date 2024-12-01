@@ -3,6 +3,7 @@ import styled from "styled-components";
 import DepositModal from "../component/modal/DepositModal";
 import SavingModal from "../component/modal/SavingModal";
 import CardModal from "../component/modal/CardModal";
+import { useNavigate } from "react-router-dom";
 
 const LikedData = [
   {
@@ -29,6 +30,7 @@ const LikedData = [
 ];
 
 const LikedItems = () => {
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState<{
     type: string;
     id: number;
@@ -43,9 +45,9 @@ const LikedItems = () => {
   return (
     <Container>
       <Header>
-        <BackIcon src="/assets/backicon.png" alt="Back" />
+        <BackIcon src="/assets/backicon.png" alt="Back" onClick={() => navigate("/mypage")}/>
         <Logo src="/assets/logo1.png" alt="Logo" />
-        <ExitIcon src="/assets/exiticon.png" alt="Exit" />
+        <ExitIcon src="/assets/exiticon.png" alt="Exit" onClick={() => navigate("/home")}/>
       </Header>
       <MyPageHeader>
         <Title>찜한 상품</Title>
