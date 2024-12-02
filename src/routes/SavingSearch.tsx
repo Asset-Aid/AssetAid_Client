@@ -8,6 +8,8 @@ const SavingSearch = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [selectedTerm, setSelectedTerm] = useState<string | null>(null);
 
+  const [savingResults, setSavingResults] = useState<any[]>([]);
+
   const banks = [
     '농협', '국민', '삼성', '현대', '카카오뱅크', '토스뱅크', '케이뱅크', '하나', '우리', 'SC제일', '기업은행', '지방은행'
   ];
@@ -44,6 +46,30 @@ const SavingSearch = () => {
         .then((response => console.log(response.data))
         .catch(error => console.error(error));
       */
+
+      const mockResponse =[ 
+          {
+              "savingId": 890,
+              "name": "행복한 적금",
+              "bank": "국민은행",
+              "startAt": "2024-10-01",
+              "endAt": null,
+              "limitDeposit": 300000,
+              "basicRate": 4.0,
+              "maxRate": 4.5
+          },
+          {
+              "savingId": 891,
+              "name": "미래 플랜 적금",
+              "bank": "우리은행",
+              "startAt": "2024-05-01",
+              "endAt": "2024-12-31",
+              "limitDeposit": 1000000,
+              "basicRate": 3.8,
+              "maxRate": 4.2
+          }
+      ];
+      setSavingResults(mockResponse);
     }
   };
 
@@ -119,6 +145,21 @@ const SavingSearch = () => {
           <ButtonText>검색</ButtonText>
         </SearchButton>
       </ButtonContainer>
+
+      <ResultsContainer>
+      {savingResults.map((saving) => (
+          <Item key={saving.savingId}>
+            <NameContainer>
+              <NameText>{saving.name} | 예금 | {saving.bank}</NameText>
+              
+            </NameContainer>
+            <ContextRow>
+              <ContentText>* 기본 금리: {saving.basicRate}% / 최대 금리: {saving.maxRate}%</ContentText>
+              <ContentText></ContentText>
+            </ContextRow>
+          </Item>
+        ))}
+      </ResultsContainer>
     </Container>
   );
 };
@@ -304,6 +345,62 @@ const SearchButton = styled.button<{ disabled: boolean }>`
   border: 1px solid #808080;
   background-color: #ffaa64;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+`;
+
+const ResultsContainer = styled.div`
+  margin-top: 20px;
+  max-height: 300px;
+  
+  overflow-x:hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #FC7900 #FFFFFF;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #FC7900;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #FFFFFF;
+  }
+`;
+
+const Item = styled.div`
+  width: 320px;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e8e8e8;
+  }
+`;
+
+const NameContainer = styled.div`
+  display: flex;
+  margin-bottom: 5px;
+`;
+
+const NameText = styled.span`
+  margin-right: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #2d2d2d;
+`;
+
+const ContextRow = styled.div`
+  display: flex;
+  margin-left: 10px;
+`;
+
+const ContentText = styled.span`
+  font-size: 11px;
+  color: #2d2d2d;
 `;
 
 export default SavingSearch;

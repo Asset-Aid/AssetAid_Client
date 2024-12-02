@@ -217,9 +217,7 @@ const CardSearch = () => {
         {cardResults.map((card) => (
           <Item key={card.cardId}>
             <NameContainer>
-              <NameText>{card.cardName}</NameText>
-              <NameText>| 카드</NameText>
-              <NameText>| {card.bank}</NameText>
+              <NameText>{card.cardName} | 카드 | {card.bank}</NameText>
             </NameContainer>
             <ContextRow>
               <ContentText>* 혜택:  </ContentText>
@@ -355,7 +353,7 @@ const SearchButton = styled.button<{ disabled: boolean }>`
 const ResultsContainer = styled.div`
   margin-top: 20px;
   max-height: 450px;
-  padding: 10px;
+ 
   overflow-x:hidden;
   overflow-y: auto;
   scrollbar-width: thin;
