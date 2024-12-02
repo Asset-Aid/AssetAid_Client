@@ -96,7 +96,9 @@ const SavingSearch = () => {
           <TermText>만기</TermText>
           {['6개월', '12개월', '24개월 이상'].map((term, index) => (
             <TermOption key={index} selected={selectedTerm === term} onClick={() => handleTermSelect(term)}>
-              <TermRadio selected={selectedTerm === term}></TermRadio>
+              <TermRadio selected={selectedTerm === term}>
+                <span/>
+              </TermRadio>
               <TermText>{term}</TermText>
             </TermOption>
           ))}
@@ -211,7 +213,7 @@ const BankButton = styled.button<{ selected: boolean }>`
   margin: 3px;
   padding: 6px;
   width: 75px;
-  background-color: ${({ selected }) => (selected ? '#eeeeee' : '#fff')};
+  background-color: ${({ selected }) => (selected ? '#fee0c5' : '#fff')};
   border: 1px solid #808080;
   border-radius: 15px;
   cursor: pointer;
@@ -232,7 +234,7 @@ const TypeButton = styled.button<{ selected: boolean }>`
   margin: 5px;
   padding: 5px;
   width: 150px;
-  background-color: ${({ selected }) => (selected ? '#eeeeee' : '#fff')};
+  background-color: ${({ selected }) => (selected ? '#fee0c5' : '#fff')};
   border: 1px solid #808080;
   border-radius: 15px;
   cursor: pointer;
@@ -262,9 +264,21 @@ const TermRadio = styled.div<{ selected: boolean }>`
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  border: 2px solid #808080;
-  background-color: ${({ selected }) => (selected ? '#ffae64' : '#fff')};
+  border: 1px solid #808080;
+  background-color: #fff; 
   margin-right: 5px;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+
+  /* 내부 원 */
+  &::after {
+    content: '';
+    width: 8px; 
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ selected }) => (selected ? '#ffae64' : 'transparent')};
+  }
 `;
 
 const ButtonContainer = styled.div`
