@@ -31,7 +31,7 @@ const CardSearch = () => {
   return (
     <Container>
       <Header>
-        <BackIcon src="/assets/backicon.png" alt="Back" />
+        <BackIconContainer />
         <Logo src="/assets/logo1.png" alt="Logo" />
         <ExitIcon src="/assets/exiticon.png" alt="Exit" />
       </Header>
@@ -88,10 +88,9 @@ const Logo = styled.img`
   height: 14px;
 `;
 
-const BackIcon = styled.img`
+const BackIconContainer = styled.div`
   width: 15px;
   height: 15px;
-  cursor: pointer;
 `;
 
 const ExitIcon = styled.img`
