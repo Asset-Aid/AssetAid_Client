@@ -137,6 +137,7 @@ const SavingSearch = () => {
             setSelectedBanks([]);
             setSelectedType(null);
             setSelectedTerm(null);
+            setSavingResults([]);
           }}
         >
           <ButtonText>초기화</ButtonText>

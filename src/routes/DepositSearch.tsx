@@ -134,6 +134,7 @@ const DepositSearch = () => {
           setSelectedBanks([]);
           setSelectedType(null);
           setSelectedTerm(null);
+          setDepositResults([]);
         }}>
           <ButtonText>초기화</ButtonText>
         </ResetButton>

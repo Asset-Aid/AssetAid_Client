@@ -205,7 +205,10 @@ const CardSearch = () => {
       </SearchContainer>
 
       <ButtonContainer>
-        <ResetButton onClick={() => setSelectedBenefits([])}>
+        <ResetButton onClick={() => { 
+          setSelectedBenefits([]); 
+          setCardResults([]); 
+        }}>
           <ButtonText>초기화</ButtonText>
         </ResetButton>
         <SearchButton onClick={handleSearch} disabled={selectedBenefits.length === 0}>
