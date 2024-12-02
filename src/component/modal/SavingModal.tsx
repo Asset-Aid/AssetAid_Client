@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { HeartIcon } from './HeartIcon';
 // import axios from 'axios';
+import { useAuth } from '../../AuthContext';
 
 interface SavingModalProps {
   visible: boolean;
@@ -22,6 +23,7 @@ interface SavingInfo {
 
 const SavingModal = ({ visible, onClose, id }: SavingModalProps) => {
   const [savingInfo, setSavingInfo] = useState<SavingInfo | null>(null);
+  const { token } = useAuth();
 
   useEffect(() => {
     if (visible && id) {
@@ -55,7 +57,9 @@ const SavingModal = ({ visible, onClose, id }: SavingModalProps) => {
     <ModalOverlay visible={visible}>
       <ModalContainer>
         <ModalHeader>
-          <HeartIcon id={id} type="saving" />
+          <HeartIconContainer>
+            {token && <HeartIcon id={id} type="saving" />}
+          </HeartIconContainer>
           <CloseButton onClick={onClose}>
             <ExitIcon src="/assets/exiticon.png" alt="Exit" />
           </CloseButton>
@@ -88,6 +92,11 @@ const SavingModal = ({ visible, onClose, id }: SavingModalProps) => {
 };
 
 // 스타일 컴포넌트
+const HeartIconContainer = styled.div`
+  width: 30px; 
+  height: 30px;
+`;
+
 const ModalOverlay = styled.div<{ visible: boolean }>`
   display: ${({ visible }) => (visible ? 'flex' : 'none')};
   position: fixed;
