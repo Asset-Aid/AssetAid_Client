@@ -48,7 +48,7 @@ const DepositSearch = () => {
       <Header>
         <BackIconContainer/>
         <Logo src="/assets/logo1.png" alt="Logo" />
-        <ExitIcon src="/assets/exiticon.png" alt="Exit" />
+        <ExitIcon src="/assets/exiticon.png" alt="Exit" onClick={() => navigate('/')}/>
       </Header>
 
       <SelectContainer>   

@@ -33,7 +33,7 @@ const CardSearch = () => {
       <Header>
         <BackIconContainer />
         <Logo src="/assets/logo1.png" alt="Logo" />
-        <ExitIcon src="/assets/exiticon.png" alt="Exit" />
+        <ExitIcon src="/assets/exiticon.png" alt="Exit" onClick={() => navigate('/')} />
       </Header>
 
       <SelectContainer>
@@ -165,7 +165,7 @@ const BenefitButton = styled.button<{ selected: boolean }>`
   margin: 3px;
   padding: 6px;
   width: 75px;
-  background-color: ${({ selected }) => (selected ? '#eeeeee' : '#fff')};
+  background-color: ${({ selected }) => (selected ? '#fee0c5' : '#fff')};
   border: 1px solid #808080;
   border-radius: 15px;
   cursor: pointer;
