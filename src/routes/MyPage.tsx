@@ -43,9 +43,9 @@ const MyPage = () => {
   return (
     <Container>
       <Header>
-        <BackIcon src="/assets/backicon.png" alt="Back" />
+        <BackIcon/>
         <Logo src="/assets/logo1.png" alt="Logo" />
-        <ExitIcon src="/assets/exiticon.png" alt="Exit" />
+        <ExitIcon src="/assets/exiticon.png" alt="Exit" onClick={() => navigate("/home")}  />
       </Header>
       <ProfileContainer>
         <ProfileImage src="/assets/character3.png" alt="Profile" />
@@ -62,7 +62,7 @@ const MyPage = () => {
       <Separator />
 
       <ButtonContainer>
-        <Button onClick={() => navigate("/edit-user-info")}>
+        <Button onClick={() => navigate("/mypage/info")}>
           <ButtonLogo src="/assets/usericon.png" alt="User Info" />
           <ButtonText>
             유저정보
@@ -71,7 +71,7 @@ const MyPage = () => {
           </ButtonText>
         </Button>
 
-        <Button onClick={() => navigate("/financial-profile")}>
+        <Button onClick={() => navigate("/mypage/financial")}>
           <ButtonLogo src="/assets/walleticon.png" alt="Financial Profile" />
           <ButtonText>
             금융성향
@@ -80,7 +80,7 @@ const MyPage = () => {
           </ButtonText>
         </Button>
 
-        <Button onClick={() => navigate("/financial-goals")}>
+        <Button onClick={() => navigate("/mypage/goal")}>
           <ButtonLogo src="/assets/goalicon.png" alt="Financial Goals" />
           <ButtonText>
             재정목표
@@ -89,7 +89,7 @@ const MyPage = () => {
           </ButtonText>
         </Button>
 
-        <Button onClick={() => navigate("/liked-items")}>
+        <Button onClick={() => navigate("/mypage/liked")}>
           <ButtonLogo src="/assets/likecheckicon.png" alt="Liked Items" />
           <ButtonText>
             찜한 상품
@@ -117,10 +117,9 @@ const Logo = styled.img`
   height: 14px;
 `;
 
-const BackIcon = styled.img`
+const BackIcon = styled.div`
   width: 15px;
   height: 15px;
-  cursor: pointer;
 `;
 
 const ExitIcon = styled.img`

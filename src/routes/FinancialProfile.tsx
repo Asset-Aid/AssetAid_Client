@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 // import axios from 'axios';
 
 const FinancialProfile = () => {
+  const navigate = useNavigate();
+
   const [profileData, setProfileData] = useState({
     job: '',
     salary: 0,
@@ -43,9 +46,9 @@ const FinancialProfile = () => {
   return (
     <Container>
       <Header>
-        <BackIcon src="/assets/backicon.png" alt="Back" />
+        <BackIcon src="/assets/backicon.png" alt="Back" onClick={() => navigate("/mypage")}/>
         <Logo src="/assets/logo1.png" alt="Logo" />
-        <ExitIcon src="/assets/exiticon.png" alt="Exit" />
+        <ExitIcon src="/assets/exiticon.png" alt="Exit" onClick={() => navigate("/home")} />
       </Header>
       <MyPageHeader>
         <Title>금융성향 확인 및 수정</Title>

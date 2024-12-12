@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 // import axios from "axios"; 
 
 const EditUserInfo = () => {
+  const navigate = useNavigate();
   const [password, setPassword] = useState<string>("");
   const [year, setYear] = useState<string>("");
   const [month, setMonth] = useState<string>("");
@@ -72,9 +74,9 @@ const EditUserInfo = () => {
   return (
     <Container>
       <Header>
-        <BackIcon src="/assets/backicon.png" alt="Back" />
+        <BackIcon src="/assets/backicon.png" alt="Back" onClick={() => navigate("/mypage")}/>
         <Logo src="/assets/logo1.png" alt="Logo" />
-        <ExitIcon src="/assets/exiticon.png" alt="Exit" />
+        <ExitIcon src="/assets/exiticon.png" alt="Exit" onClick={() => navigate("/home")}/>
       </Header>
 
       <MyPageHeader>
